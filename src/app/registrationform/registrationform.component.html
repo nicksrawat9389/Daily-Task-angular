@@ -1,0 +1,136 @@
+
+<div class="container">
+    <div class="justify-content-center">
+      <div class="border-end border-3 rounded " style="background-color: #89ABE3;">
+        <h2 class="text-center mb-4">Registration Form</h2>
+        <form [formGroup]="registrationForm">
+          <div class="row px-5">
+            <div class="form-group col">
+              <label for="firstName">First Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="firstName" formControlName="firstName" required style="background-color: #A1BE95;">
+              <div *ngIf="formsubmitted || registrationForm.get('firstName')?.invalid && (registrationForm.get('firstName')?.dirty || registrationForm.get('firstName')?.touched)">
+                  <div *ngIf="registrationForm.get('firstName')?.hasError('required')" class="text-danger">First name is required.</div>
+              </div>
+            </div>
+            <div class="form-group col">
+              <label for="lastName">Last Name <span class="text-danger">*</span> </label>
+              <input type="text" class="form-control" id="lastName" formControlName="lastName" required style="background-color: #A1BE95;">
+              <div *ngIf="formsubmitted || registrationForm.get('lastName')?.invalid&&(registrationForm.get('lastName')?.dirty||registrationForm.get('lastName')?.touched)">
+                  <div *ngIf="registrationForm.get('lastName')?.hasError('required')" class="text-danger">Last name is required.</div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <div class="row px-5">
+            <div class="form-group col">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email" required style="background-color: #A1BE95;">
+              <div class="text-danger" *ngIf="formsubmitted && (registrationForm.get('email')?.touched&&registrationForm.get('email')?.invalid)">*Field is required</div>
+              <div class="text-danger" *ngIf="registrationForm.get('email')?.hasError('email')">Email is not valid</div>
+            </div>
+
+            <div class="form-group col">
+              <label for="phone">Phone</label>
+              <input type="number" class="form-control" id="phone" formControlName="phone" required style="background-color: #A1BE95;">
+              <div *ngIf="registrationForm.get('phone')?.invalid&&(registrationForm.get('phone')?.dirty||registrationForm.get('phone')?.touched)">
+                  <div *ngIf="formsubmitted || registrationForm.get('phone')?.hasError('required')" class="text-danger">Phone Number is required.</div>
+                  <div *ngIf="formsubmitted || registrationForm.get('phone')?.hasError('pattern')" class="text-danger">Phone should be of 10 digits</div>
+              </div>
+  
+            </div>
+          </div>
+
+
+          <div class="form-group col px-5">
+            <label for="address">Address</label>
+            <textarea class="form-control" id="address" rows="3" formControlName="address" required style="background-color: #A1BE95;"></textarea>
+          </div>
+          
+
+          <div class="row px-5">
+            <div class="col form-group">
+              <label>Password</label>
+              <input class="form-control" type="password" formControlName="password" style="background-color: #A1BE95;">
+              <div *ngIf="formsubmitted || registrationForm.get('password')?.invalid&&(registrationForm.get('password')?.dirty||registrationForm.get('password')?.touched)">
+                <div *ngIf="registrationForm.get('password')?.hasError('required')" class="text-danger">Password is required.</div>
+                <div *ngIf="registrationForm.get('password')?.hasError('pattern')" class="text-danger">Password Should contain at least 1 upper case, numeric, and special character</div>
+              </div>
+            </div>
+            <div class="col form-group">
+              <label>Confirm Password</label>
+              <input class="form-control" type="password" formControlName="confirmPassword" style="background-color: #A1BE95;">
+              <div *ngIf="formsubmitted || registrationForm.get('confirmPassword')?.invalid&&(registrationForm.get('confirmPassword')?.dirty||registrationForm.get('confirmPassword')?.touched)">
+                <div *ngIf="registrationForm.get('confirmPassword')?.hasError('required')" class="text-danger">Confirm Password is required.</div>
+                <div *ngIf="registrationForm.get('confirmPassword')?.hasError('pattern')" class="text-danger">Password Should contain at least 1 upper case, numeric, and special character</div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <div class="row px-5">
+            <div class="form-group col-6">
+              <label for="age">Age</label>
+              <input type="number" class="form-control" id="age" formControlName="age" required style="background-color: #A1BE95;">
+              <div *ngIf="formsubmitted|| registrationForm.get('age')?.invalid&&(registrationForm.get('age')?.dirty||registrationForm.get('age')?.touched)">
+                  <div *ngIf="registrationForm.get('age')?.hasError('required')" class="text-danger">Age is required.</div>
+                  <div *ngIf="registrationForm.get('age')?.hasError('min')" class="text-danger">Age must be greater than 0</div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div class="px-5">
+            <div class="form-group col">
+              <label>Gender</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="male" value="male" formControlName="gender" required style="background-color: #A1BE95;">
+                <label class="form-check-label" for="male">Male</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="female" value="female" formControlName="gender" required style="background-color: #A1BE95;">
+                <label class="form-check-label" for="female">Female</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="other" value="other" formControlName="gender" required style="background-color: #A1BE95;">
+                <label class="form-check-label" for="other">Other</label>
+              </div>
+              <div *ngIf="formsubmitted && registrationForm.get('gender')?.hasError('required')" class="text-danger">Gender is required.</div>
+            </div>
+          </div>
+
+          <div class="row px-5">
+            <div class="col">
+              <label>Country</label>
+              <select class="form-select" (change)="changeHandler($event)" style="background-color: #A1BE95;" formControlName="country">
+                <option *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+              <div *ngIf="formsubmitted || registrationForm.get('country')?.invalid && (registrationForm.get('country')?.dirty || registrationForm.get('country')?.touched)">
+                <div *ngIf="registrationForm.get('country')?.hasError('required')" class="text-danger">Country is required.</div>
+              </div>
+            </div>
+            <div class="col">
+              <label>States</label>
+              <select class="form-select" style="background-color: #A1BE95;" formControlName="state">
+                <option *ngFor="let state of states">{{state}}</option>
+              </select>
+              <div *ngIf="formsubmitted || registrationForm.get('state')?.invalid && (registrationForm.get('state')?.dirty || registrationForm.get('state')?.touched)">
+                <div *ngIf="registrationForm.get('state')?.hasError('required')" class="text-danger">State is required.</div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block mx-5 px-5 my-2" (click)="submitHandler()">Submit</button>
+          <br>
+          <a routerLink="/" class="mx-5  my-2">Already have an account</a>
+        </form>
+      </div>
+    </div>
+  </div>

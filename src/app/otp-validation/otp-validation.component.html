@@ -1,0 +1,6 @@
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <ng-otp-input [formCtrl]="otpFormControl" [config]="{length:6}"></ng-otp-input>
+        <button class="btn btn-primary m-5" (click)="sendOTPHandler()">Send Otp</button>
+    </div>
+  </div>
