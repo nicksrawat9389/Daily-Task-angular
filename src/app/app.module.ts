@@ -12,6 +12,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { OtpValidationComponent } from './otp-validation/otp-validation.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { SetPasswordComponent } from './set-password/set-password.component';
+import { UserModuleModule } from './user-module/user-module.module';
+
 
 @NgModule({
   declarations: [
@@ -23,14 +25,17 @@ import { SetPasswordComponent } from './set-password/set-password.component';
     ResetPasswordComponent,
     OtpValidationComponent,
     SetPasswordComponent,
+
   
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    UserModuleModule,
     ReactiveFormsModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,70 @@
+<div>
+
+    <div class="d-flex justify-content-center flex-column align-items-center">
+        <h1>Super Admin</h1>
+        <form [formGroup]="userForm">
+
+            <div class="d-flex gap-5 ">
+
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" type="text" formControlName="name">
+                    <div *ngIf="formSubmitted || userForm.get('name')?.invalid && (userForm.get('name')?.dirty || userForm.get('name')?.touched)">
+                        <div *ngIf="userForm.get('name')?.hasError('required')" class="text-danger">Name is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input  class="form-control" type="text" formControlName="email">
+                    <div class="text-danger" *ngIf="formSubmitted || (userForm.get('email')?.touched&&userForm.get('email')?.invalid)">*Field is required</div>
+                    <div class="text-danger" *ngIf="userForm.get('email')?.hasError('email')">Email is not valid</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contact</label>
+                    <input  class="form-control" type="number" formControlName="contact">
+                    <div *ngIf="userForm.get('contact')?.invalid&&(userForm.get('contact')?.dirty||userForm.get('contact')?.touched)">
+                        <div *ngIf="formSubmitted || userForm.get('contact')?.hasError('required')" class="text-danger">Contact Number is required.</div>
+                        <div *ngIf="formSubmitted || userForm.get('contact')?.hasError('pattern')" class="text-danger">Contact should be of 10 digits</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Designation</label>
+                    <input  class="form-control" type="text" formControlName="designation">
+                    <div *ngIf="formSubmitted || userForm.get('designation')?.invalid && (userForm.get('designation')?.dirty || userForm.get('designation')?.touched)">
+                        <div *ngIf="userForm.get('designation')?.hasError('required')" class="text-danger">Designation is required.</div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary my-4 p-2" (click)="editForm ? editSubmitHandler() : userSubmitHandler()">{{editForm ? "Edit Form" : "Add User"}}</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center">
+        <table class="table text-center table-primary table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-warning" *ngFor="let user of users" >
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.contact}}</td>
+                    <td>{{user.designation}}</td>
+                    <td>
+                        <button class="btn btn-primary" (click)="editHandler(user)">Edit</button>
+                        <button class="btn btn-danger" >Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
