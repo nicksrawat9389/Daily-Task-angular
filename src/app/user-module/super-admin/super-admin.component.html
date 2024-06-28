@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary my-4 p-2" (click)="editForm ? editSubmitHandler() : userSubmitHandler()">{{editForm ? "Edit Form" : "Add User"}}</button>
+                    <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary my-4 p-2"  (click)="editForm ? editSubmitHandler() : userSubmitHandler()">{{editForm ? "Edit Form" : "Add User"}}</button>
                 </div>
 
             </div>

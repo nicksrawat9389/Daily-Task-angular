@@ -21,10 +21,12 @@ export class SuperAdminComponent implements OnInit {
     }
 
     userSubmitHandler(){
-      console.log(this.userForm.value);
-      this.users.push(this.userForm.value);
-      console.log(this.users);
-      this.userForm.reset();
+      if(this.userForm.valid || this.formSubmitted){
+
+        this.users.push(this.userForm.value);
+        console.log(this.users);
+        this.userForm.reset();
+      }
     }
 
     editSubmitHandler(){
