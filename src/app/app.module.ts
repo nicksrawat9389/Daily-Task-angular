@@ -13,6 +13,7 @@ import { OtpValidationComponent } from './otp-validation/otp-validation.componen
 import { NgOtpInputModule } from 'ng-otp-input';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { UserModuleModule } from './user-module/user-module.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { UserModuleModule } from './user-module/user-module.module';
     UserModuleModule,
     ReactiveFormsModule,
     NgOtpInputModule,
+    BrowserAnimationsModule,
     
   ],
   providers: [],
