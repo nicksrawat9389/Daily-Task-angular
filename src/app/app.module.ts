@@ -14,6 +14,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { UserModuleModule } from './user-module/user-module.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ResetPasswordComponent,
     OtpValidationComponent,
     SetPasswordComponent,
+    HeaderComponent,
 
   
     

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <h2 class="text-center mb-4">Login Form</h2>
+        <h2 class="text-center mb-4">Super Admin Login Form</h2>
    
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     
@@ -22,12 +22,8 @@
             <button type="submit" class="btn btn-primary my-4">Submit</button>
             <div hidden=wrongId><p class="text-danger">Wrong Id and Password <br> Please Try Again</p></div>
         </form>
-        <a routerLink="/registration">Create new accout? </a>
-        <br>
-        <a routerLink="/resetpassword">Reset Password</a>
-        <br>
-        <a routerLink="/user/super-login">Super Admin</a>
-        </div>
+        
+        
     </div>
 </div>
 

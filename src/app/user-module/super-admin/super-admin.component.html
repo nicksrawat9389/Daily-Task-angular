@@ -2,6 +2,7 @@
 
     <div class="d-flex justify-content-center flex-column align-items-center">
         <h1>Super Admin</h1>
+        <button (click)="logout()">logout</button>
         <form [formGroup]="userForm">
 
             <div class="d-flex gap-5 ">
@@ -29,6 +30,13 @@
                     <div class="text-danger" *ngIf="formSubmitted || (userForm.get('email')?.touched&&userForm.get('email')?.invalid)">*Field is required</div>
                     <div class="text-danger" *ngIf="userForm.get('email')?.hasError('email')">Email is not valid</div>
                 </div>
+
+                <div>
+                    <label class="form-label" for="pass">Password : </label>
+                <input type="password" placeholder="Enter Password" class="form-control" formControlName="password" id="pass">
+                <span class="text-danger" *ngIf="( userForm.get('password')?.invalid && userForm.get('password')?.touched)">* Password is required</span>
+                </div>
+
                 <div class="form-group">
                     <label class="form-label">Contact</label>
                     <input  class="form-control" type="number" formControlName="contact">
@@ -59,6 +67,7 @@
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
+                    
                     <th scope="col">Contact</th>
                     <th scope="col">Designation</th>
                     <th scope="col">Action</th>
@@ -71,6 +80,7 @@
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
+                    
                     <td>{{user.contact}}</td>
                     <td>{{user.designation}}</td>
                     
@@ -82,9 +92,8 @@
                     <td>
                         
                         <mat-slide-toggle
-                            [checked]="checked"
-                            [disabled]="disabled"
-                            (change)="onChange($event,user.id)"
+                            [checked]="user.isActive"
+                            (change)="onChange(user)"
                             >
                         </mat-slide-toggle>
                     </td>

@@ -40,8 +40,12 @@ const routes: Routes = [
     component:SetPasswordComponent
   },
   {
-    path:'user-module',
+    path:'user',
     loadChildren:()=>import("./user-module/user-module.module").then(m=>m.UserModuleModule),
+  },
+  {
+    path:'seller',
+    loadChildren:()=>import("./seller-module/seller-module.module").then(m=>m.SellerModuleModule)
   }
   
 ];

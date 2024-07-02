@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-super-admin',
@@ -7,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./super-admin.component.css']
 })
 export class SuperAdminComponent implements OnInit {
-    users: Array<{id:number,name:string,email:string,contact:string,designation:string,isActive:boolean}> = [];
+    users: Array<{id:number,name:string,email:string,password:string,contact:string,designation:string,isActive:boolean}> = [];
     userForm! : FormGroup;
     editForm:boolean = false;
     formSubmitted:boolean = false;
@@ -16,7 +18,14 @@ export class SuperAdminComponent implements OnInit {
 
   //toggle button
   checked:boolean = false;
-  disabled:boolean = false;
+  // disabled:boolean = false;
+
+  /**
+   *
+   */
+  constructor(private authService:AuthService,private router:Router) {
+    
+  }
 
 
 
@@ -25,26 +34,27 @@ export class SuperAdminComponent implements OnInit {
         id:new FormControl('',[Validators.required]),
         name:new FormControl('',[Validators.required]),
         email:new FormControl('',[Validators.required,Validators.email]),
+        password:new FormControl('',[Validators.required]),
         contact:new FormControl('',[Validators.required,Validators.pattern('^[0-9]{10}$')]),
         designation:new FormControl('',[Validators.required]),
         isActive:new FormControl(false)
       })
-
+      if (localStorage.getItem('array')==null) localStorage.setItem('array',JSON.stringify(this.users));
       this.users = JSON.parse(localStorage.getItem('array')!);
     }
 
     userSubmitHandler(){
       if(this.userForm.valid || this.formSubmitted){
-        if(localStorage.getItem('array')!=null){
+        if(localStorage.getItem('array')!==null){
           this.users = JSON.parse(localStorage.getItem('array')!);
           // this.userForm.value.id = this.count++;
           this.users.push(this.userForm.value);
           localStorage.setItem('array',JSON.stringify(this.users));
           this.userForm.reset();
         }else{
-          this.users.push(this.userForm.value);
+          // this.users.push(this.userForm.value);
           localStorage.setItem('array',JSON.stringify(this.users));
-          this.userForm.reset();
+          // this.userForm.reset();
         }
       }
     }
@@ -67,7 +77,7 @@ export class SuperAdminComponent implements OnInit {
 
     editHandler(user:any){
       this.editForm = true;
-      this.userForm.patchValue({id:user.id,name:user.name,email:user.email,contact:user.contact,designation:user.designation});
+      this.userForm.patchValue({id:user.id,name:user.name,email:user.email,password:user.password,contact:user.contact,designation:user.designation});
     }
 
     deleteHandler(user:any){
@@ -83,15 +93,19 @@ export class SuperAdminComponent implements OnInit {
       })
     }
 
-    onChange(event:any,userId:any){
+    onChange(user:any){
       console.log(event);
       this.users = JSON.parse(localStorage.getItem('array')!);
       this.users.forEach(u=>{
-        if(u.id === userId){
+        if(u.id === user.id){
           u.isActive = !u.isActive;
           localStorage.setItem('array',JSON.stringify(this.users));
         }
       })
+    }
+    logout(){
+      this.authService.logout();
+      this.router.navigateByUrl("/user/super-login")
     }
 
 
