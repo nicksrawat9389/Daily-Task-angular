@@ -1,5 +1,7 @@
+import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface Product {
   id: number;
@@ -27,6 +29,13 @@ export class SellerDashboardComponent implements OnInit {
   categoryForm!:FormGroup;
   product: Product = {id:0,name:'',description:'',image:'',price:0,quantity:0};
   productForm!: FormGroup;
+  /**
+   *
+   */
+  constructor(private router:Router) {
+    
+  }
+  
   ngOnInit(){
     this.categoryForm = new FormGroup({
       category: new FormControl('',[Validators.required])
@@ -55,11 +64,10 @@ export class SellerDashboardComponent implements OnInit {
     localStorage.setItem('product',JSON.stringify(this.productCategories));
     this.categoryForm.reset();
     this.formHidden = false;
-
   }
   filteredProducts:Product[] = [];
-  category:string = 'Mens';
-  showProducts(value:any){
+  category:string = '';
+  showProducts(value:string){
     this.category = value;
     this.productCategories = JSON.parse(localStorage.getItem('product')!);
     this.productCategories.forEach(category=>{
@@ -69,14 +77,15 @@ export class SellerDashboardComponent implements OnInit {
     });
   }
 
-  onSubmit(){
-    this.product.id = this.productForm.get('id')?.value;
-    this.product.name = this.productForm.get('name')?.value;  
-    this.product.description = this.productForm.get('description')?.value;
-    this.product.image = this.productForm.get('image')?.value;
-    this.product.price = this.productForm.get('price')?.value;
-    this.product.quantity = this.productForm.get('quantity')?.value;
+  
 
+  addProduct(){
+    this.router.navigate(["/seller/seller-add-product"],{ queryParams:{category : this.category}});
+
+  }
+  needNav = false;
+  togglenavbar(){
+    this.needNav = !this.needNav;
   }
 
 

@@ -1,11 +1,15 @@
-<div class="container-fluid">
-    <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+
+<div class="container-fluid" >
+  
+    <div class="row" style="height: 100vh;">
+      
+      <nav *ngIf="needNav" class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
+          <h5 class="mb-3">Product Categories</h5>
           <div *ngFor="let item of productCategories">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <button class="btn btn-link" (click)="showProducts(item.category)" >{{ item.category }}</button>
+                <button class="btn btn-link text-dark" (click)="showProducts(item.category)" >{{ item.category }}</button>
               </li>
             </ul>
           </div>
@@ -21,64 +25,50 @@
                   formControlName="category"
                 />
               </div>
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                (click)="addedCategory()"
+              >
+                Add Category
+              </button>
             </form>
-        </div>
-        <button
-          type="submit"
-          class="btn btn-primary btn-block"
-          (click)="formHidden?addCategory():addedCategory()"
-        >
-          Add Category
-        </button>
+            <button class="btn btn-info" type="button" style="width: 3rem; height: 2rem;" (click)="togglenavbar()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left " viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"/>
+            </svg></button>
+          </div>
         </div>
       </nav>
-  
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        
+      <button class="btn btn-info" type="button" style="width: 3rem; height: 2rem;" (click)="togglenavbar()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+      </svg></button>
+      <main role="main" class="col-md-10 d-flex flex-row flex-wrap gap-5" >
+        <div *ngFor="let item of filteredProducts" > 
+          <div>
+            <div class="card" style="width: 14rem;">
+              <img src={{item.image}} class="card-img-top" width="50px" height="250px">
+              <div class="d-flex flex-column ">
+                <h5 class="">{{item.name}}</h5>
+                <p>{{item.description}}</p>
+                <p>{{item.price}}</p>
+                <p>{{item.quantity}}</p>
+                <a href="#" class="btn btn-primary">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+         </div>
       </main>
+
+      <div class="container mt-5 d-flex justify-content-center align-items-end">
+        <button type="button" class="btn btn-primary" (click)="addProduct()">
+          Add Product
+        </button>
+      </div>
+      
     </div>
   </div>
   
 
-  <div class="container mt-5">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Add Product
-    </button>
-  
-    <app-seller-add-product-modal
-      title="Add Product" 
-      closeLabel="Close" 
-      saveLabel="Add Product"
-      [product]="product"
-      category="category"
-    >
-      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-            <label for="productId" class="form-label">Product Id</label>
-            <input type="number" class="form-control" id="productId" formControlName="id">
-          </div>
-        <div class="mb-3">
-          <label for="productName" class="form-label">Product Name</label>
-          <input type="text" class="form-control" id="productName" formControlName="name">
-        </div>
-        <div class="mb-3">
-            <label for="productDescription" class="form-label">Product Description</label>
-            <input type="text" class="form-control" id="productDescription" formControlName="description">
-        </div>
-        <div class="mb-3">
-            <label for="productImage" class="form-label">Product Image URL</label>
-            <input type="text" class="form-control" id="productImage" formControlName="image">
-        </div>
-        <div class="mb-3">
-            <label for="productQuantity" class="form-label">Product Quantity</label>
-            <input type="number" class="form-control" id="productQuantity" formControlName="quantity">
-        </div>
-        <div class="mb-3">
-            <label for="productPrice" class="form-label">Product Price</label>
-            <input type="number" class="form-control" id="productPrice" formControlName="price">
-        </div>
-      </form>
-    </app-seller-add-product-modal>
-  </div>
   
   
+    
