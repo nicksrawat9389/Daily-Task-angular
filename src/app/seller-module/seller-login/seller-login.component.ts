@@ -30,11 +30,15 @@ export class SellerLoginComponent {
       if(this.loginForm.valid){
         const username = this.loginForm.get("username")?.value;
         const password = this.loginForm.get("password")?.value;
-        console.log(typeof(username));
-        console.log(typeof(password));
+        
         this.users.forEach(user=>{
           if(username===user.email && password===user.password){
-            this.router.navigateByUrl('/seller/seller-dashboard');
+            if(user.isActive){
+              this.router.navigateByUrl('/seller/seller-dashboard');
+            }
+            else{
+              alert("Your account is not active");
+            }
           }
         })
       }

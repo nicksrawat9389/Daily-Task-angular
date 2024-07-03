@@ -1,1 +1,84 @@
-<p>seller-dashboard works!</p>
+<div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <div *ngFor="let item of productCategories">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <button class="btn btn-link" (click)="showProducts(item.category)" >{{ item.category }}</button>
+              </li>
+            </ul>
+          </div>
+  
+          <div class="mt-3">
+            <form [formGroup]="categoryForm">
+              <div class="form-group">
+                <input 
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Category"
+                  name="category"
+                  formControlName="category"
+                />
+              </div>
+            </form>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          (click)="formHidden?addCategory():addedCategory()"
+        >
+          Add Category
+        </button>
+        </div>
+      </nav>
+  
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <div class="container mt-5">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Product
+    </button>
+  
+    <app-seller-add-product-modal
+      title="Add Product" 
+      closeLabel="Close" 
+      saveLabel="Add Product"
+      [product]="product"
+      category="category"
+    >
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="productId" class="form-label">Product Id</label>
+            <input type="number" class="form-control" id="productId" formControlName="id">
+          </div>
+        <div class="mb-3">
+          <label for="productName" class="form-label">Product Name</label>
+          <input type="text" class="form-control" id="productName" formControlName="name">
+        </div>
+        <div class="mb-3">
+            <label for="productDescription" class="form-label">Product Description</label>
+            <input type="text" class="form-control" id="productDescription" formControlName="description">
+        </div>
+        <div class="mb-3">
+            <label for="productImage" class="form-label">Product Image URL</label>
+            <input type="text" class="form-control" id="productImage" formControlName="image">
+        </div>
+        <div class="mb-3">
+            <label for="productQuantity" class="form-label">Product Quantity</label>
+            <input type="number" class="form-control" id="productQuantity" formControlName="quantity">
+        </div>
+        <div class="mb-3">
+            <label for="productPrice" class="form-label">Product Price</label>
+            <input type="number" class="form-control" id="productPrice" formControlName="price">
+        </div>
+      </form>
+    </app-seller-add-product-modal>
+  </div>
+  
+  

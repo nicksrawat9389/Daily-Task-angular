@@ -1,10 +1,83 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  image:string,
+  price: number;
+  quantity: number;
+}
+
+interface ProductCategory {
+  category: string;
+  products: Product[];
+}
+
 
 @Component({
   selector: 'app-seller-dashboard',
   templateUrl: './seller-dashboard.component.html',
   styleUrls: ['./seller-dashboard.component.css']
 })
-export class SellerDashboardComponent {
+export class SellerDashboardComponent implements OnInit {
+  productCategories: ProductCategory[] = [];
+  formHidden:boolean = false;
+  categoryForm!:FormGroup;
+  product: Product = {id:0,name:'',description:'',image:'',price:0,quantity:0};
+  productForm!: FormGroup;
+  ngOnInit(){
+    this.categoryForm = new FormGroup({
+      category: new FormControl('',[Validators.required])
+    });
+
+    this.productForm = new FormGroup({
+      id: new FormControl('',[Validators.required]),
+      name: new FormControl('',[Validators.required]),
+      description: new FormControl('',[Validators.required]),
+      image: new FormControl('',[Validators.required]),
+      price: new FormControl('',[Validators.required]),
+      quantity: new FormControl('',[Validators.required])
+    });
+
+    if (localStorage.getItem('product')==null) localStorage.setItem('product',JSON.stringify(this.productCategories));
+      this.productCategories = JSON.parse(localStorage.getItem('product')!);
+    
+  }
+  addCategory(){
+    this.formHidden = true;
+  }
+  addedCategory(){
+    this.productCategories = JSON.parse(localStorage.getItem('product')!);
+    this.productCategories.push({category:this.categoryForm.get('category')?.value,products:[]});
+    console.log(this.categoryForm.get('category')?.value);
+    localStorage.setItem('product',JSON.stringify(this.productCategories));
+    this.categoryForm.reset();
+    this.formHidden = false;
+
+  }
+  filteredProducts:Product[] = [];
+  category:string = 'Mens';
+  showProducts(value:any){
+    this.category = value;
+    this.productCategories = JSON.parse(localStorage.getItem('product')!);
+    this.productCategories.forEach(category=>{
+      if(category.category===value){
+        this.filteredProducts = category.products;
+      }
+    });
+  }
+
+  onSubmit(){
+    this.product.id = this.productForm.get('id')?.value;
+    this.product.name = this.productForm.get('name')?.value;  
+    this.product.description = this.productForm.get('description')?.value;
+    this.product.image = this.productForm.get('image')?.value;
+    this.product.price = this.productForm.get('price')?.value;
+    this.product.quantity = this.productForm.get('quantity')?.value;
+
+  }
+
 
 }
