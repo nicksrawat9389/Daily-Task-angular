@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class DashboardComponent {
     constructor(private authService:AuthService){
-
+      
     }
 
     logoutHandler(){

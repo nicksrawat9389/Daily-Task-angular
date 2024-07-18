@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-loginform',
@@ -13,7 +14,7 @@ export class LoginformComponent implements OnInit  {
   formsubmitted : boolean = false;
   wrongId:boolean=false;
   loginForm!: FormGroup;
-  constructor(private authService:AuthService,private router:Router){
+  constructor(private authService:AuthService,private router:Router,private toaster:ToastrService){
 
   }
     ngOnInit(): void {
@@ -30,6 +31,7 @@ export class LoginformComponent implements OnInit  {
 
           if(this.authService.login(username,password)){
             this.router.navigateByUrl("/dashboard");
+            this.toaster.success("Login Successfull");
           }
           else{
             this.formsubmitted = true;

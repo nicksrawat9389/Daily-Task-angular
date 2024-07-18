@@ -13,8 +13,9 @@ import { OtpValidationComponent } from './otp-validation/otp-validation.componen
 import { NgOtpInputModule } from 'ng-otp-input';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { UserModuleModule } from './user-module/user-module.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
 
 
 @NgModule({
@@ -39,9 +40,18 @@ import { HeaderComponent } from './header/header.component';
     ReactiveFormsModule,
     NgOtpInputModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+    positionClass: 'toast-bottom-right',
+    preventDuplicates: true,
+    })
+    
     
   ],
-  providers: [],
+  providers: [
+    provideAnimations(),
+    provideToastr(),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
